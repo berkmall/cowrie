@@ -130,7 +130,7 @@ class Command_wget(HoneyPotCommand):
         
         else:
             parsed = compat.urllib_parse.urlparse(url)
-            host: str = parsed.hostname.decode("utf8")
+            host: str = parsed.hostname
             self.errorWrite(f"wget: unable to resolve host address ‘{host}’\n")
             self.exit()
             return

@@ -89,7 +89,7 @@ class Command_ping(HoneyPotCommand):
         self.count = 0
 
     def showreply(self):
-        ms = 40 + random.random() * 10
+        ms = 50 + random.random() * 10
         self.write(
             "64 bytes from {} ({}): icmp_seq={} ttl=55 time={:.1f} ms\n".format(
                 self.host, self.ip, self.count + 1, ms
