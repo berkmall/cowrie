@@ -120,12 +120,20 @@ class Command_wget(HoneyPotCommand):
                 self.exit()
                 return
 
-        self.deferred = self.download(self.url, self.outfile)
-        if self.deferred:
-            self.deferred.addCallback(self.success)
-            self.deferred.addErrback(self.error, self.url)
+        if not CowrieConfig.getboolean("honeypot", "disable_network", fallback=True):
+            self.deferred = self.download(self.url, self.outfile)
+            if self.deferred:
+                self.deferred.addCallback(self.success)
+                self.deferred.addErrback(self.error, self.url)
+            else:
+                self.exit()
+        
         else:
+            parsed = compat.urllib_parse.urlparse(url)
+            host: str = parsed.hostname.decode("utf8")
+            self.errorWrite(f"wget: unable to resolve host address ‘{host}’\n")
             self.exit()
+            return
 
     def download(self, url, fakeoutfile, *args, **kwargs):
         """

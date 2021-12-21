@@ -28,7 +28,7 @@ __all__ = [
     "last",
     "ls",
     "nc",
-    "netstat",
+    #"netstat",
     "nohup",
     "perl",
     "ping",

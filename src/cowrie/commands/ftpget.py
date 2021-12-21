@@ -174,8 +174,13 @@ Download a file via FTP
         self.url_log = f"{self.url_log}/{self.remote_path}"
 
         self.artifactFile = Artifact(self.local_file)
-
-        result = self.ftp_download()
+        
+        if not CowrieConfig.getboolean("honeypot", "disable_network", fallback=True):
+            result = self.ftp_download()
+        else:
+            self.write("ftpget: can't connect to remote host: Connection refused\n")
+            self.exit()
+            return
 
         self.artifactFile.close()
 

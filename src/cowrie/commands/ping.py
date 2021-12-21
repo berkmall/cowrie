@@ -91,7 +91,7 @@ class Command_ping(HoneyPotCommand):
     def showreply(self):
         ms = 40 + random.random() * 10
         self.write(
-            "64 bytes from {} ({}): icmp_seq={} ttl=50 time={:.1f} ms\n".format(
+            "64 bytes from {} ({}): icmp_seq={} ttl=55 time={:.1f} ms\n".format(
                 self.host, self.ip, self.count + 1, ms
             )
         )
@@ -106,11 +106,12 @@ class Command_ping(HoneyPotCommand):
 
     def printstatistics(self):
         self.write(f"--- {self.host} ping statistics ---\n")
+
         self.write(
-            "%d packets transmitted, %d received, 0%% packet loss, time 907ms\n"
+            "%d packets transmitted, %d received, 0%% packet loss, time 3005ms\n"
             % (self.count, self.count)
         )
-        self.write("rtt min/avg/max/mdev = 48.264/50.352/52.441/2.100 ms\n")
+        self.write("rtt min/avg/max/mdev = 26.076/27.470/28.611/1.019 ms\n")
 
     def handle_CTRL_C(self):
         if self.running is False:

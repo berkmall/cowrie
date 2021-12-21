@@ -249,10 +249,18 @@ class Command_curl(HoneyPotCommand):
         self.artifactFile = Artifact(outfile)
         # HTTPDownloader will close() the file object so need to preserve the name
 
-        self.deferred = self.download(url, outfile, self.artifactFile)
-        if self.deferred:
-            self.deferred.addCallback(self.success, outfile)
-            self.deferred.addErrback(self.error, url)
+        if not CowrieConfig.getboolean("honeypot", "disable_network", fallback=True):
+            self.deferred = self.download(url, outfile, self.artifactFile)
+            if self.deferred:
+                self.deferred.addCallback(self.success, outfile)
+                self.deferred.addErrback(self.error, url)
+
+        else:
+            parsed = compat.urllib_parse.urlparse(url)
+            host: str = parsed.hostname.decode("utf8")
+            self.errorWrite(f"curl: (6) Could not resolve host: {host}\n")
+            self.exit()
+            return
 
     def download(self, url, fakeoutfile, outputfile, *args, **kwargs):
         scheme: bytes

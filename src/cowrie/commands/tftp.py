@@ -124,8 +124,11 @@ class Command_tftp(HoneyPotCommand):
             self.hostname = host
             self.port = int(port)
 
-        self.makeTftpRetrieval()
-        self.exit()
+        if not CowrieConfig.getboolean("honeypot", "disable_network", fallback=True):
+            self.makeTftpRetrieval()
+            self.exit()
+        else:
+            self.exit()
 
 
 commands["/usr/bin/tftp"] = Command_tftp
