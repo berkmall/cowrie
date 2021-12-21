@@ -126,7 +126,7 @@ class HoneyPotSSHTransport(transport.SSHServerTransport, TimeoutMixin):
                     )
                 )
                 # OpenSSH sending the same message
-                self.transport.write(b"Invalid SSH identification string.\n")
+                self.transport.write(b"Invalid SSH identification string.")
                 self.transport.loseConnection()
                 return
             else:
