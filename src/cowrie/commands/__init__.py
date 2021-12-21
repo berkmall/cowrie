@@ -40,7 +40,7 @@ __all__ = [
     "sudo",
     "tar",
     "tee",
-    "tftp",
+    #"tftp",
     "ulimit",
     "uname",
     "uniq",
