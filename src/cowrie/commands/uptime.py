@@ -14,7 +14,7 @@ commands = {}
 class Command_uptime(HoneyPotCommand):
     def call(self):
         self.write(
-            "%s  up %s,  1 user,  load average: 0.09, 0.13, 0.09\n"
+            "%s  up %s,  1 user,  load average: 0.00, 0.00, 0.00\n"
             % (time.strftime("%H:%M:%S"), utils.uptime(self.protocol.uptime()))
         )
 
